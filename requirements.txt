@@ -1,6 +1,8 @@
-beautifulsoup4
-requests
-newspaper3k
-lxml_html_clean
-pandas
-sentence-transformers
+requests==2.31.0
+beautifulsoup4==4.12.2
+newspaper3k==0.2.8
+pandas==2.1.1
+scikit-learn==1.2.2
+sentence-transformers==2.2.2
+numpy==1.24.3
+nltk==3.8.1
