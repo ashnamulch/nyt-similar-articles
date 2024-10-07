@@ -75,8 +75,10 @@ if __name__ == '__main__':
     load_embeddings(df, embeddings_file)
 
     # Query example
-    user_query = 'space exploration and Mars mission'
+    user_query = 'renewable energy advancements in 2024'
     similar_articles = find_similar_articles_bert(user_query, df)
+    
+    print('------------------------------------------------------')
 
     for article in similar_articles:
         print(f"Title: {article['title']}")
