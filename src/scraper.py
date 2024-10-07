@@ -23,8 +23,7 @@ def scrape_nyt_section_articles(section_url, max_pages=10):
                 link = f'https://nytimes.com{link}'
             if '/202' in link: # Fetch valid article URLs (with year in the URL)
                 article_links.append(link)
-    
-        print(f'Scraped page {page_number} of {section_url}. Found {len(article_links)} so far.')
+                
         page_number += 1
 
         # To prevent overloading the server, provide a short delay

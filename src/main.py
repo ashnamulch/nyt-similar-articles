@@ -2,7 +2,7 @@ import pandas as pd
 import json
 import os
 from scraper import scrape_nyt_section_articles
-from model import load_embeddings, find_similar_articles
+from model import load_embeddings, find_similar_articles_bert
 from newspaper import Article
 
 # Function to extract content and title from an article URL
@@ -17,7 +17,7 @@ def extract_article_content(url):
     
 # Scrape and save articles
 def load_or_scrape_articles(sections, articles_file='nyt_articles.json', max_pages=10):
-    if os.path.exists('articles_file'):
+    if os.path.exists(articles_file):
         print('Loading articles from file...')
         with open(articles_file, 'r') as f:
             articles_data = json.load(f)
@@ -75,8 +75,8 @@ if __name__ == '__main__':
     load_embeddings(df, embeddings_file)
 
     # Query example
-    user_query = 'mental health during adolescence'
-    similar_articles = find_similar_articles(user_query, df)
+    user_query = 'space exploration and Mars mission'
+    similar_articles = find_similar_articles_bert(user_query, df)
 
     for article in similar_articles:
         print(f"Title: {article['title']}")

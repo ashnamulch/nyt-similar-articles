@@ -12,7 +12,12 @@ def load_embeddings(df, embeddings_file):
     if os.path.exists(embeddings_file):
         print('Loading embeddings from file...')
         embeddings = np.load(embeddings_file, allow_pickle=True)
-        df['embeddings'] = embeddings
+        if len(embeddings) == len(df):
+            df['embeddings'] = list(embeddings)
+        else:
+            print('Calculating embeddings...')
+            df['embeddings'] = df['content'].apply(lambda x: model.encode(x))
+            np.save(embeddings_file, df['embeddings'].tolist())
     else:
         print('Calculating embeddings...')
         df['embeddings'] = df['content'].apply(lambda x: model.encode(x))
@@ -22,7 +27,7 @@ def load_embeddings(df, embeddings_file):
     return df['embeddings']
 
 # Function to find similar articles based on a query using BERT
-def find_similar_articles_bert(query, model, df, top_n=5):
+def find_similar_articles_bert(query, df, top_n=5):
     # Encode the user query
     query_embedding = model.encode(query)
 
@@ -48,4 +53,6 @@ def find_similar_articles_bert(query, model, df, top_n=5):
                 'similarity': cosine_similarities[idx]
             })
             count += 1
+
+    return top_articles
 
